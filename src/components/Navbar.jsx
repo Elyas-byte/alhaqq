@@ -206,7 +206,7 @@ const Navbar = () => {
         <img
           onClick={toggleSearch}
           className="w-8 h-8 bg-black p-2 rounded-2xl cursor-pointer"
-          src={assets.search_icon} // Replace with your search icon asset
+          src={assets.search_icon}
           alt="Search"
         />
 
