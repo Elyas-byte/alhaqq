@@ -1,7 +1,7 @@
 import { createContext, useEffect, useRef, useState } from "react";
 import { songsData } from "../assets/assets";
 import { doc, setDoc, increment } from "firebase/firestore";
-import { db } from "../../firebaseConfig"; // Update with your actual path
+import { db } from "../../firebaseConfig";
 
 export const PlayerContext = createContext();
 

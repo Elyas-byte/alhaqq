@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import Navbar from "./Navbar";
 import { useParams } from "react-router-dom";
-import { assets, songsData } from "../assets/assets"; // Import songsData from assets
+import { assets, songsData } from "../assets/assets";
 import { PlayerContext } from "../context/PlayerContext";
 import { SidebarContext } from "../context/NavbarContext";
 import Account from "./Account";

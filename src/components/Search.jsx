@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import { songsData } from "../assets/assets";
 import { assets } from "../assets/assets";
-import { db } from "../../firebaseConfig"; // Import the Firestore database instance
-import { collection, getDocs } from 'firebase/firestore'; // Import Firestore methods
+import { db } from "../../firebaseConfig";
+import { collection, getDocs } from 'firebase/firestore'; 
 import { PlayerContext } from "../context/PlayerContext";
 import { SidebarContext } from "../context/NavbarContext";
 import Account from "./Account";
@@ -58,7 +58,7 @@ const Search = () => {
         (item.name && item.name.toLowerCase().includes(searchTerm.toLowerCase()))
     );
   // State to manage the sidebar visibility
-  const { isSidebarOpen, toggleSidebar } = useContext(SidebarContext); // Use SidebarContext
+  const { isSidebarOpen, toggleSidebar } = useContext(SidebarContext);
 
     return (
         <>

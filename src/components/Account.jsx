@@ -89,7 +89,7 @@ const Account = () => {
                     <input
                         type="email"
                         value={email}
-                        className='bg-[#121212] border-2 px-2 border-gray-100 rounded m-1 w-3/4 mx-auto' // Center the input field
+                        className='bg-[#121212] border-2 px-2 border-gray-100 rounded m-1 w-3/4 mx-auto'
                         onChange={(e) => setEmail(e.target.value)}
                         required
                     />
@@ -100,7 +100,7 @@ const Account = () => {
                     <input
                         type="password"
                         value={password}
-                        className='bg-[#121212] border-2 px-2 border-gray-100 rounded m-1 w-3/4 mx-auto' // Center the input field
+                        className='bg-[#121212] border-2 px-2 border-gray-100 rounded m-1 w-3/4 mx-auto'
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />

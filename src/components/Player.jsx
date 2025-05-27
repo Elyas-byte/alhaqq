@@ -43,7 +43,7 @@ const Player = () => {
 
     const toggleLike = async () => {
         if (!user) {
-            alert(t('Please log in to like songs.')); // Alert if user is not logged in
+            alert(t('Please log in to like songs.')); // Alert if user is not logged in (temporary alert)
             return;
         }
 
@@ -67,7 +67,7 @@ const Player = () => {
                     await updateDoc(likedPlaylistRef, { songs: [...likedSongs, track.id] });
                 }
                 
-                setIsLiked(!isLiked); // Toggle liked state
+                setIsLiked(!isLiked); 
             }
         }
     };

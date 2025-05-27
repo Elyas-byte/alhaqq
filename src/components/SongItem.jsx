@@ -45,7 +45,7 @@ const SongItem = ({ image, name, desc, id }) => {
                         const fetchedPlaylists = await Promise.all(playlistsPromises);
                         const validPlaylists = fetchedPlaylists.filter(Boolean); // Filter out any null values
                         setPlaylists(validPlaylists); // Set the valid playlists in state
-                        console.log(validPlaylists); // Log the fetched playlists
+                        console.log(validPlaylists); // Log the fetched playlists (comment this out if building!!)
                     }
                 }
             }
@@ -84,7 +84,7 @@ const SongItem = ({ image, name, desc, id }) => {
         }
         // Close context menu after an option is selected
         setContextMenu(null);
-        setIsDropdownOpen(false); // Ensure dropdown closes when an option is selected
+        setIsDropdownOpen(false); 
     };
     const handleAddToPlaylist = async (playlistId) => {
         const songRef = doc(db, "playlists", playlistId);
@@ -142,8 +142,8 @@ const SongItem = ({ image, name, desc, id }) => {
                             <img src={assets.queue_icon} className="w-6 h-6 mr-2" /> {t('a_q')}
                         </li>
                         <li
-                            onMouseEnter={() => setIsDropdownOpen(true)} // Open dropdown on mouse enter
-                            onMouseLeave={() => setIsDropdownOpen(false)} // Close dropdown on mouse leave
+                            onMouseEnter={() => setIsDropdownOpen(true)} 
+                            onMouseLeave={() => setIsDropdownOpen(false)}
                             className="p-2 flex cursor-pointer transition-colors duration-300 hover:bg-[#ffffff26]"
                         >
                             <span>{t('add_to_playlist')}</span>
@@ -154,8 +154,8 @@ const SongItem = ({ image, name, desc, id }) => {
                         <div
                             className="absolute bg-[#2a2a2a] text-[#EAEAEA] rounded shadow-lg"
                             style={{ top: '75%', left: '100%', transform: 'translateY(-50%)' }}
-                            onMouseEnter={handleMouseEnterDropdown} // Keep dropdown open on hover
-                            onMouseLeave={handleMouseLeaveDropdown} // Close when mouse leaves
+                            onMouseEnter={handleMouseEnterDropdown}
+                            onMouseLeave={handleMouseLeaveDropdown}
                         >
                             <ul>
                                 {playlists.map(playlist => (

@@ -29,7 +29,7 @@ const DisplayHome = () => {
     useEffect(() => {
         const fetchPlayCount = async () => {
             try {
-                const playCountCollection = collection(db, 'aswatalmaatem'); // Use the correct collection name
+                const playCountCollection = collection(db, 'aswatalmaatem');
                 const playCountSnapshot = await getDocs(playCountCollection);
 
                 // Map Firestore data to an array with document IDs and play count
@@ -58,10 +58,8 @@ const DisplayHome = () => {
 
         fetchPlayCount();
     }, []);
-    // State to manage the sidebar visibility
     const [isSidebarOpen, setSidebarOpen] = useState(false);
 
-    // Function to toggle the sidebar
     const toggleSidebar = () => {
         setSidebarOpen(!isSidebarOpen);
     };

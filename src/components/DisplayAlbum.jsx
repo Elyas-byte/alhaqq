@@ -14,7 +14,7 @@ const DisplayAlbum = () => {
 
     const { id } = useParams();
     const albumData = albumsData[id]
-    const { isSidebarOpen, toggleSidebar } = useContext(SidebarContext); // Use SidebarContext
+    const { isSidebarOpen, toggleSidebar } = useContext(SidebarContext);
 
     return (
         <>

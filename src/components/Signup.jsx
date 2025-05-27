@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getFirestore, collection, addDoc, setDoc, doc } from 'firebase/firestore'; // Firestore functions
+import { getFirestore, collection, addDoc, setDoc, doc } from 'firebase/firestore'; 
 
 const Signup = () => {
     const { t, i18n } = useTranslation();
     document.body.dir = i18n.dir();
     const auth = getAuth();
-    const db = getFirestore(); // Initialize Firestore
+    const db = getFirestore();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

@@ -1,9 +1,7 @@
 import React, { createContext, useState } from 'react';
 
-// Create the context
 export const AccountsContext = createContext();
 
-// Create the provider
 const AccountsProvider = ({ children }) => {
     const [isAccountsVisible, setIsAccountsVisible] = useState(false);
 

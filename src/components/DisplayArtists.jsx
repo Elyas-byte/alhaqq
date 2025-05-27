@@ -19,7 +19,7 @@ const DisplayArtist = () => {
     const [songsWithPlayCount, setSongsWithPlayCount] = useState([]);
     const artistData = artistsData[id]
     const albumData = albumsData[id]
-    const { isSidebarOpen, toggleSidebar } = useContext(SidebarContext); // Use SidebarContext
+    const { isSidebarOpen, toggleSidebar } = useContext(SidebarContext); 
 
     useEffect(() => {
         const fetchPlayCount = async () => {
@@ -59,7 +59,6 @@ const DisplayArtist = () => {
         <>
             <Navbar toggleSidebar={toggleSidebar} />
             
-            {/* Banner Section */}
             <div className="relative h-72 md:h-96">
                 <img 
                     className="absolute top-0 left-0 w-full h-[60%] object-cover rounded-md shadow-[3px_6px_4px_1px_rgba(0,0,0,0.25)] hidden md:block" 
@@ -104,7 +103,7 @@ const DisplayArtist = () => {
                 <div className="flex overflow-auto">
                         {songsData
                             .filter((item) => item.desc === artistData.name)
-                            .slice(0, 15) // Get top 15 songs based on play count
+                            .slice(0, 15) // Get top 15 files based on play count
                             .map((item, index) => (
                                 <SongItem 
                                     key={index} 
