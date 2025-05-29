@@ -22,7 +22,6 @@ import arrow_right from './right_arrow.png'
 import arrow_left from './left_arrow.png'
 import clock_icon from './clock_icon.png'
 import alhaqq from './alhaqq.png'
-import ilaallah from './toallah.mp3'
 import toallahimg from './ilaallah.png'
 import remalultufuf from './remalultufuf.jpg'
 import ziyarat from './ziyarat.jpg'
@@ -30,21 +29,13 @@ import bildam3 from './bildam3.jpg'
 import ayeqtel from './ayeqtel.jpg'
 import allaqabum from './elleqab_um_elbenin.jpg'
 import jurhulfiraq from './jurhalfiraq.jpg'
-import mawoodilak from './maw3oodilak.mp3'
 import maw300dilak from './maw300dilak.jpg'
-import sakaitshne from './sakaitshne.mp3'
 import sakaitshneimg from './sakaitshne.jpg'
-import alirah from './alirah.mp3'
 import alirahimg from './alirah.jpg'
-import thkronee from './thkronee.mp3'
 import ninwa from './ninwa.jpg'
-import naslhaidaram from './naslhaidaram.mp3'
 import rayatna from './rayatna.jpg'
-import mamireem from './mamireem.mp3'
 import mamireemimg from './mamireem.jpg'
 import shahada from './shahada.jpg'
-import shahdal from './shahada.mp3'
-import ashoof from './ashoof.mp3'
 import abdulameer from './abdulameer.jpg'
 import abdulameerBanner from './ABDALAMEER.png'
 import sawtulahrar from './sawtulahrar.jpg'
@@ -173,7 +164,7 @@ export const songsData = [
         id: 0,
         name: "سفرة الى الله",
         image: toallahimg,
-        file: ilaallah,
+        file: "https://firebasestorage.googleapis.com/v0/b/sov-al-haqq.appspot.com/o/audios%2Ftoallah.mp3?alt=media&token=0fbae346-fa41-437a-bffa-30e11b8da1b2",
         desc: "حيدر البياتي",
         duration: "17:34",
         album: "N/a",
@@ -227,7 +218,7 @@ export const songsData = [
         id: 1,
         name: "موعود الك",
         image: maw300dilak,
-        file: mawoodilak,
+        file: "https://firebasestorage.googleapis.com/v0/b/sov-al-haqq.appspot.com/o/audios%2Fmaw3oodilak.mp3?alt=media&token=66a9f085-2a06-469c-be9a-4ba13027d2fd",
         desc: "سيد محمد الحسيني",
         duration: "5:13",
         album: "n/a",
@@ -237,7 +228,7 @@ export const songsData = [
         id: 2,
         name: "سقای تشنه کی دیده",
         image: sakaitshneimg,
-        file: sakaitshne,
+        file: "https://firebasestorage.googleapis.com/v0/b/sov-al-haqq.appspot.com/o/audios%2Fsakaitshne.mp3?alt=media&token=a49b8708-eb79-4824-a316-38ca018e5083",
         desc: "حسن شیرازی",
         duration: "4:41",
         album: "n/a",
@@ -247,7 +238,7 @@ export const songsData = [
         id: 3,
         name: "علي راح",
         image: alirahimg,
-        file: alirah,
+        file: "https://firebasestorage.googleapis.com/v0/b/sov-al-haqq.appspot.com/o/audios%2Falirah.mp3?alt=media&token=a890c612-e0f8-46e6-86d9-93664c93125a",
         desc: "محمد بوجبارة",
         duration: "12:43",
         album: "n/a",
@@ -257,7 +248,7 @@ export const songsData = [
         id: 4,
         name: "ذكروني",
         image: ninwa,
-        file: thkronee,
+        file: "https://firebasestorage.googleapis.com/v0/b/sov-al-haqq.appspot.com/o/audios%2Fthkronee.mp3?alt=media&token=15354c8d-b109-4cf5-82a4-e3b48eab98ba",
         desc: "حسين حاجي",
         duration: "6:34",
         album: "n/a",
@@ -267,7 +258,7 @@ export const songsData = [
         id: 5,
         name: "نسل حيدرم",
         image: rayatna,
-        file: naslhaidaram,
+        file: "https://firebasestorage.googleapis.com/v0/b/sov-al-haqq.appspot.com/o/audios%2Fnaslhaidaram.mp3?alt=media&token=c5d2f9cb-c002-407e-9efe-0ca1cbf23862",
         desc: "محمد حجيرات",
         duration: "2:45",
         album: "n/a",
@@ -277,7 +268,7 @@ export const songsData = [
         id: 6,
         name: "ما ميرويم",
         image: mamireemimg,
-        file: mamireem,
+        file: "https://firebasestorage.googleapis.com/v0/b/sov-al-haqq.appspot.com/o/audios%2Fmamireem.mp3?alt=media&token=7e1c94a4-8a23-4edf-9a0a-b1273735488e",
         desc: "شيخ حسين الأكرف و حامد زمانی",
         duration: "7:10",
         album: "n/a",
@@ -287,7 +278,7 @@ export const songsData = [
         id: 7,
         name: "شهادة",
         image: shahada,
-        file: shahdal,
+        file: "https://firebasestorage.googleapis.com/v0/b/sov-al-haqq.appspot.com/o/audios%2Fshahada.mp3?alt=media&token=a0d2bea9-be36-4888-8e8d-a42bbb295815",
         desc: "عبد الأمير البلادي",
         duration: "6:17",
         album: "6",
@@ -297,7 +288,7 @@ export const songsData = [
         id: 8,
         name: "يا يوم اشوف اعتابك",
         image: ziyarat,
-        file: ashoof,
+        file: "https://firebasestorage.googleapis.com/v0/b/sov-al-haqq.appspot.com/o/audios%2Fashoof.mp3?alt=media&token=f460d432-4ebf-4394-ad66-18ad276590ef",
         desc: "باسم الكربلائي",
         duration: "15:22",
         album: "1",
