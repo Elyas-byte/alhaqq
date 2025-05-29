@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import { assets } from '../assets/assets';
-import { useTranslation } from 'react-i18next';
+import { assets } from "../assets/assets";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { SidebarContext } from "../context/NavbarContext";
 import { AccountsContext } from "../context/AccountsContext";
-import { PlayerContext } from "../context/PlayerContext"; // Context for playing songs
-import axios from 'axios';
+import { PlayerActionsContext } from "../context/PlayerActionsContext"; // Context for playing songs
+import axios from "axios";
 import { db } from "../../firebaseConfig"; // Import Firestore database instance
-import { collection, getDocs } from 'firebase/firestore'; // Import Firestore methods
+import { collection, getDocs } from "firebase/firestore"; // Import Firestore methods
 import { songsData } from "../assets/assets"; // Songs data
 
 const Navbar = () => {
@@ -21,19 +21,19 @@ const Navbar = () => {
 
   const { isSidebarOpen, toggleSidebar } = useContext(SidebarContext);
   const { toggleAccountsVisibility } = useContext(AccountsContext);
-  const { playWithId, addToQueue } = useContext(PlayerContext); // Use PlayerContext for playWithId function
+  const { playWithId, addToQueue } = useContext(PlayerActionsContext); // Use PlayerActionsContext for playWithId function
 
   const [news, setNews] = useState([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false); // State for search bar expansion
-  const [searchQuery, setSearchQuery] = useState(''); // State for search query
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
   const [songsWithPlayCount, setSongsWithPlayCount] = useState([]); // State for songs with play count
 
   // Define RSS feed URLs for different languages
   const rssFeeds = {
-    en: 'https://en.shafaqna.com/feed/',
-    fa: 'https://fa.shafaqna.com/feed/', // Farsi
-    ur: 'https://ur.shafaqna.com/feed/', // Urdu
-    ar: 'https://ar.shafaqna.com/feed/'  // Arabic
+    en: "https://en.shafaqna.com/feed/",
+    fa: "https://fa.shafaqna.com/feed/", // Farsi
+    ur: "https://ur.shafaqna.com/feed/", // Urdu
+    ar: "https://ar.shafaqna.com/feed/", // Arabic
   };
 
   const handleContextMenu = (e, id) => {
@@ -41,16 +41,18 @@ const Navbar = () => {
     setContextMenu({
       mouseX: e.clientX + 2,
       mouseY: e.clientY - 6,
-      id
+      id,
     });
   };
-  
+
   // Handle long press on mobile
   const handleTouchStart = (e, id) => {
     // Start the timer for long press
-    setLongPressTimer(setTimeout(() => {
-      handleContextMenu(e, id);
-    }, 500)); // 500ms for long press
+    setLongPressTimer(
+      setTimeout(() => {
+        handleContextMenu(e, id);
+      }, 500)
+    ); // 500ms for long press
   };
 
   const handleTouchEnd = () => {
@@ -63,15 +65,14 @@ const Navbar = () => {
 
   // Handle click on options in the context menu
   const handleOptionClick = (option) => {
-    const { id } = contextMenu; 
-    if (option === 'play') {
+    const { id } = contextMenu;
+    if (option === "play") {
       playWithId(id);
-    } else if (option === 'queue') {
+    } else if (option === "queue") {
       addToQueue(id);
     }
     setContextMenu(null);
   };
-  
 
   // Close context menu when clicking elsewhere
   const handleClickAway = () => {
@@ -84,9 +85,12 @@ const Navbar = () => {
       const rssUrl = rssFeeds[currentLang] || rssFeeds.en; // Default to English if no feed for current language
 
       try {
-        const response = await axios.get('https://api.rss2json.com/v1/api.json', {
-          params: { rss_url: rssUrl }
-        });
+        const response = await axios.get(
+          "https://api.rss2json.com/v1/api.json",
+          {
+            params: { rss_url: rssUrl },
+          }
+        );
         setNews(response.data.items);
       } catch (error) {
         console.error("Error fetching news: ", error);
@@ -100,28 +104,29 @@ const Navbar = () => {
   useEffect(() => {
     const fetchPlayCount = async () => {
       try {
-        const playCountCollection = collection(db, 'aswatalmaatem'); // Use the correct collection name
+        const playCountCollection = collection(db, "aswatalmaatem"); // Use the correct collection name
         const playCountSnapshot = await getDocs(playCountCollection);
 
         // Map Firestore data to an array with document IDs and play count
-        const playCountData = playCountSnapshot.docs.map(doc => ({
+        const playCountData = playCountSnapshot.docs.map((doc) => ({
           id: doc.id,
-          playCount: doc.data().plays || 0 // Default to 0 if 'plays' field is missing
+          playCount: doc.data().plays || 0, // Default to 0 if 'plays' field is missing
         }));
 
         // Combine play count with songs data
-        const combinedData = songsData.map(song => {
-          const playData = playCountData.find(doc => doc.id === song.id.toString()); // Match document ID with song ID
+        const combinedData = songsData.map((song) => {
+          const playData = playCountData.find(
+            (doc) => doc.id === song.id.toString()
+          ); // Match document ID with song ID
           return {
             ...song,
-            playCount: playData ? playData.playCount : 0 // Set playCount to 0 if no data found
+            playCount: playData ? playData.playCount : 0, // Set playCount to 0 if no data found
           };
         });
 
         // Sort by play count in descending order
         combinedData.sort((a, b) => b.playCount - a.playCount);
         setSongsWithPlayCount(combinedData);
-
       } catch (error) {
         console.error("Error fetching play counts: ", error);
       }
@@ -141,9 +146,10 @@ const Navbar = () => {
   };
 
   // Filter songs based on the search query
-  const filteredSongs = (songsWithPlayCount || []).filter(item =>
-    searchQuery === '' ||
-    (item.name && item.name.toLowerCase().includes(searchQuery.toLowerCase()))
+  const filteredSongs = (songsWithPlayCount || []).filter(
+    (item) =>
+      searchQuery === "" ||
+      (item.name && item.name.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   return (
@@ -153,16 +159,33 @@ const Navbar = () => {
           {/* Hamburger Menu */}
           <div
             onClick={toggleSidebar}
-            className={`min-w-8 min-h-8 lg:hidden flex flex-col justify-center items-center cursor-pointer transition-transform duration-300 ${isSidebarOpen ? 'rotate-90' : ''}`}>
+            className={`min-w-8 min-h-8 lg:hidden flex flex-col justify-center items-center cursor-pointer transition-transform duration-300 ${
+              isSidebarOpen ? "rotate-90" : ""
+            }`}
+          >
             <div className="min-w-[75%] h-[2px] rounded-md bg-[#EAEAEA] mb-1"></div>
             <div className="min-w-[75%] h-[2px] rounded-md bg-[#EAEAEA] mb-1"></div>
             <div className="min-w-[75%] h-[2px] rounded-md bg-[#EAEAEA]"></div>
           </div>
 
           {/* Back and Forward buttons */}
-          <img onClick={() => navigate('/')} className="w-8 bg-black p-2 rounded-2xl cursor-pointer" src={assets.home_icon} />
-          <img onClick={() => navigate(-1)} className="w-8 bg-black p-2 hidden md:block rounded-2xl cursor-pointer" src={assets.arrow_left} alt="Back" />
-          <img onClick={() => navigate(1)} className="w-8 bg-black p-2 hidden md:block rounded-2xl cursor-pointer" src={assets.arrow_right} alt="Forward" />
+          <img
+            onClick={() => navigate("/")}
+            className="w-8 bg-black p-2 rounded-2xl cursor-pointer"
+            src={assets.home_icon}
+          />
+          <img
+            onClick={() => navigate(-1)}
+            className="w-8 bg-black p-2 hidden md:block rounded-2xl cursor-pointer"
+            src={assets.arrow_left}
+            alt="Back"
+          />
+          <img
+            onClick={() => navigate(1)}
+            className="w-8 bg-black p-2 hidden md:block rounded-2xl cursor-pointer"
+            src={assets.arrow_right}
+            alt="Forward"
+          />
         </div>
 
         {/* Marquee effect for latest Shafaqna news */}
@@ -211,27 +234,44 @@ const Navbar = () => {
         />
 
         <div className="flex items-center gap-4">
-          <p className="bg-white text-black text-[15px] px-4 py-1 rounded-2xl cursor-pointer">{t("donate")}</p>
-          <p className="bg-black text-[#EAEAEA] py-1 px-3 text-[15px] rounded-2xl cursor-pointer hidden md:block">{t("install")}</p>
-          <p onClick={toggleAccountsVisibility} className="bg-red-200 text-black w-8 h-8 rounded-full flex items-center justify-center cursor-pointer">E</p>
+          <p className="bg-white text-black text-[15px] px-4 py-1 rounded-2xl cursor-pointer">
+            {t("donate")}
+          </p>
+          <p className="bg-black text-[#EAEAEA] py-1 px-3 text-[15px] rounded-2xl cursor-pointer hidden md:block">
+            {t("install")}
+          </p>
+          <p
+            onClick={toggleAccountsVisibility}
+            className="bg-red-200 text-black w-8 h-8 rounded-full flex items-center justify-center cursor-pointer"
+          >
+            E
+          </p>
         </div>
       </div>
 
       <div
-        className={`fixed top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ease-in-out ${isSearchOpen ? 'w-[600px] opacity-100 pointer-events-auto' : 'w-0 opacity-0 pointer-events-none'
-          } z-50`}
+        className={`fixed top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ease-in-out ${
+          isSearchOpen
+            ? "w-[600px] opacity-100 pointer-events-auto"
+            : "w-0 opacity-0 pointer-events-none"
+        } z-50`}
       >
         <input
           type="text"
           value={searchQuery}
           onChange={handleSearchInput}
           placeholder="Search..."
-          className={`px-4 py-2 border border-[#333333] rounded-lg focus:outline-none bg-[#191919] transition-all duration-500 ease-in-out ${isSearchOpen ? 'w-full' : 'w-0'
-            }`}
+          className={`px-4 py-2 border border-[#333333] rounded-lg focus:outline-none bg-[#191919] transition-all duration-500 ease-in-out ${
+            isSearchOpen ? "w-full" : "w-0"
+          }`}
         />
       </div>
       <div
-        className={`fixed top-[35%] left-1/2 transform -translate-x-1/2 transition-opacity duration-500 ease-in-out ${isSearchOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}
+        className={`fixed top-[35%] left-1/2 transform -translate-x-1/2 transition-opacity duration-500 ease-in-out ${
+          isSearchOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }
   z-20 w-[600px] bg-black p-4 rounded-lg`}
       >
         {filteredSongs.length > 0 ? (
@@ -247,7 +287,9 @@ const Navbar = () => {
               <div className="flex justify-between items-center">
                 <span className="flex-shrink-0 w-1/3">{item.name}</span>
                 <span className="flex-grow mx-2">{item.desc}</span>
-                <span className="flex-shrink-0 w-1/4 text-right">{item.duration}</span>
+                <span className="flex-shrink-0 w-1/4 text-right">
+                  {item.duration}
+                </span>
               </div>
             </div>
           ))
@@ -262,23 +304,31 @@ const Navbar = () => {
         >
           <ul>
             <li
-              onClick={() => handleOptionClick('play')}
+              onClick={() => handleOptionClick("play")}
               className="p-2 flex cursor-pointer transition-colors duration-300 hover:bg-[#ffffff26]"
             >
-              <img src={assets.play_icon} className="w-6 h-6 mr-2" /> {t('play')}
+              <img src={assets.play_icon} className="w-6 h-6 mr-2" />{" "}
+              {t("play")}
             </li>
             <li
-              onClick={() => handleOptionClick('queue')}
+              onClick={() => handleOptionClick("queue")}
               className="p-2 flex cursor-pointer transition-colors duration-300 hover:bg-[#ffffff26]"
             >
-              <img src={assets.queue_icon} className="w-6 h-6 mr-2" /> {t('a_q')}
+              <img src={assets.queue_icon} className="w-6 h-6 mr-2" />{" "}
+              {t("a_q")}
             </li>
           </ul>
         </div>
       )}
 
       {/* Click away listener to close context menu */}
-      {contextMenu && <div onClick={handleClickAway} onContextMenu={handleClickAway} className="fixed inset-0 z-40"></div>}
+      {contextMenu && (
+        <div
+          onClick={handleClickAway}
+          onContextMenu={handleClickAway}
+          className="fixed inset-0 z-40"
+        ></div>
+      )}
     </>
   );
 };
