@@ -13,6 +13,8 @@ import Queue from "./Queue";
 import Playlist from './Playlist'
 import Login from "./Login";
 import LyricsFragment from "./Lyrics";
+
+
 const Display = () => {
     const { t, i18n } = useTranslation();
     document.body.dir = i18n.dir();
